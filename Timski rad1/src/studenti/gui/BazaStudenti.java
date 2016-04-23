@@ -39,7 +39,7 @@ public class BazaStudenti extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				GUIKontroler.ugasiAplikaciju();
+			GUIKontroler.ugasiAplikaciju();
 			}
 		});
 		setTitle("Baza studenti");
@@ -53,6 +53,11 @@ public class BazaStudenti extends JFrame {
 		menuBar.add(mnFile);
 		
 		JMenuItem mntmIzadji = new JMenuItem("Izadji");
+		mntmIzadji.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.exit(0);
+			}
+		});
 		mntmIzadji.setIcon(new ImageIcon(BazaStudenti.class.getResource("/javax/swing/plaf/metal/icons/ocean/close.gif")));
 		mnFile.add(mntmIzadji);
 		contentPane = new JPanel();

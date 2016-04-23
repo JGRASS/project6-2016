@@ -22,9 +22,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.awt.Font;
 import java.awt.Color;
+
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 public class DodajStudentaGUI extends JFrame {
@@ -69,9 +73,9 @@ public class DodajStudentaGUI extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(255, 250, 250));
+
 		contentPane.add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
 		
@@ -82,9 +86,9 @@ public class DodajStudentaGUI extends JFrame {
 		panel.add(panel_1);
 		panel_1.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Ime i prezime:");
+		JLabel lblNewLabel = new JLabel("Ime i prezime:* ");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
-		lblNewLabel.setBounds(10, 32, 86, 14);
+		lblNewLabel.setBounds(10, 32, 91, 14);
 		panel_1.add(lblNewLabel);
 		
 		jtfImeIPrezime = new JTextField();
@@ -93,7 +97,7 @@ public class DodajStudentaGUI extends JFrame {
 		panel_1.add(jtfImeIPrezime);
 		jtfImeIPrezime.setColumns(10);
 		
-		JLabel lblProsek = new JLabel("Prosek");
+		JLabel lblProsek = new JLabel("Prosek:*");
 		lblProsek.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
 		lblProsek.setBounds(10, 121, 86, 14);
 		panel_1.add(lblProsek);
@@ -104,7 +108,7 @@ public class DodajStudentaGUI extends JFrame {
 		jtfProsek.setBounds(106, 118, 149, 20);
 		panel_1.add(jtfProsek);
 		
-		JLabel lblBrojIndeksa = new JLabel("Broj indeksa:");
+		JLabel lblBrojIndeksa = new JLabel("Broj indeksa:*");
 		lblBrojIndeksa.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
 		lblBrojIndeksa.setBounds(10, 78, 86, 14);
 		panel_1.add(lblBrojIndeksa);
