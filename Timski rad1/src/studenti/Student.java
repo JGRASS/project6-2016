@@ -1,4 +1,4 @@
-package klase;
+package studenti;
 
 import java.io.Serializable;
 

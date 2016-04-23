@@ -1,4 +1,4 @@
-package klase;
+package studenti.gui;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -9,14 +9,20 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
+
+import studenti.GrupaStudenti;
+import studenti.Student;
+
 import javax.swing.border.BevelBorder;
 import javax.swing.JTextPane;
 import java.awt.Dimension;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
-public class StudentiGUI extends JFrame {
+public class DodajStudentaGUI extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField jtfImeIPrezime;
@@ -30,7 +36,7 @@ public class StudentiGUI extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					StudentiGUI frame = new StudentiGUI();
+					DodajStudentaGUI frame = new DodajStudentaGUI();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -42,12 +48,17 @@ public class StudentiGUI extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public StudentiGUI() {
+	public DodajStudentaGUI() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+			}
+		});
 		setMinimumSize(new Dimension(400, 400));
 		setMaximumSize(new Dimension(400, 400));
 		setPreferredSize(new Dimension(400, 400));
 		setTitle("Dodaj studenta");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -106,9 +117,10 @@ public class StudentiGUI extends JFrame {
 				String imePrezime = jtfImeIPrezime.getText();
 				String dodatneAktivnosti = textPane.getText();
 				Double prosek = Double.parseDouble(jtfProsek.getText());
-				Student s = new Student(imePrezime, dodatneAktivnosti, brIndeksa, prosek);
-				GrupaStudenti gs = new GrupaStudenti();
-				gs.unesiStudenta(s);
+				GUIKontroler.unesiStudenta(imePrezime, dodatneAktivnosti, brIndeksa, prosek);
+			
+				GUIKontroler.sacuvajUFajl();
+				dispose();
 				
 			}
 		});
