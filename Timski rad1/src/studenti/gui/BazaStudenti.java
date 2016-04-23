@@ -24,6 +24,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.LinkedList;
+import java.awt.Color;
+import java.awt.Font;
 
 public class BazaStudenti extends JFrame {
 
@@ -59,37 +61,50 @@ public class BazaStudenti extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
 		JPanel panel = new JPanel();
+		panel.setBackground(Color.WHITE);
 		contentPane.add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
 		
 		JButton btnDodajStudenta = new JButton("Dodaj studenta");
+		btnDodajStudenta.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
+		btnDodajStudenta.setBackground(new Color(204, 255, 153));
+		btnDodajStudenta.setIcon(new ImageIcon(BazaStudenti.class.getResource("/slike/add.png")));
 		btnDodajStudenta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				GUIKontroler.otvoriProzorZaDodavanjeStudenata();
 			}
 		});
-		btnDodajStudenta.setBounds(48, 43, 133, 50);
+		btnDodajStudenta.setBounds(10, 11, 188, 87);
 		panel.add(btnDodajStudenta);
 		
 		JButton btnIzmeni = new JButton("Izmeni");
-		btnIzmeni.setBounds(253, 43, 133, 50);
+		btnIzmeni.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
+		btnIzmeni.setBackground(new Color(204, 255, 153));
+		btnIzmeni.setIcon(new ImageIcon(BazaStudenti.class.getResource("/slike/group_edit.png")));
+		btnIzmeni.setBounds(236, 11, 178, 87);
 		panel.add(btnIzmeni);
 		
 		JButton btnPretraziStudenta = new JButton("Pretrazi studenta");
+		btnPretraziStudenta.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
+		btnPretraziStudenta.setBackground(new Color(204, 255, 153));
+		btnPretraziStudenta.setIcon(new ImageIcon(BazaStudenti.class.getResource("/slike/search.png")));
 		btnPretraziStudenta.setPreferredSize(new Dimension(120, 30));
 		btnPretraziStudenta.setMinimumSize(new Dimension(120, 30));
 		btnPretraziStudenta.setMaximumSize(new Dimension(120, 30));
-		btnPretraziStudenta.setBounds(48, 141, 133, 50);
+		btnPretraziStudenta.setBounds(10, 132, 188, 87);
 		panel.add(btnPretraziStudenta);
 		
 		JButton btnPrikaziStudente = new JButton("Prikazi studente");
+		btnPrikaziStudente.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
+		btnPrikaziStudente.setBackground(new Color(204, 255, 153));
+		btnPrikaziStudente.setIcon(new ImageIcon(BazaStudenti.class.getResource("/slike/Show.png")));
 		btnPrikaziStudente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				GUIKontroler.otvoriProzorZaPrikazStudenata();
 				
 			}
 		});
-		btnPrikaziStudente.setBounds(253, 141, 133, 50);
+		btnPrikaziStudente.setBounds(236, 132, 178, 87);
 		panel.add(btnPrikaziStudente);
 	
 	

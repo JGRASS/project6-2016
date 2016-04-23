@@ -17,6 +17,13 @@ import java.awt.event.WindowEvent;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.border.SoftBevelBorder;
+import javax.swing.border.BevelBorder;
+import java.awt.Color;
+import java.awt.Font;
+import javax.swing.JLabel;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class PrikazStudenataGUI extends JFrame {
 	
@@ -59,11 +66,15 @@ public class PrikazStudenataGUI extends JFrame {
 		setContentPane(contentPane);
 		
 		JPanel panel = new JPanel();
+		panel.setBackground(new Color(255, 255, 255));
 		contentPane.add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 11, 404, 229);
+		scrollPane.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
+		scrollPane.setBackground(new Color(255, 255, 255));
+		scrollPane.setForeground(new Color(255, 255, 204));
+		scrollPane.setBounds(0, 0, 424, 171);
 		panel.add(scrollPane);
 		
 		table = getTable();
@@ -79,6 +90,8 @@ public class PrikazStudenataGUI extends JFrame {
 	public JTable getTable() {
 		if(table == null ){
 			table = new JTable();
+			table.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
+			table.setBackground(new Color(255, 255, 255));
 			StudentTableModel model = new StudentTableModel(null);
 			table.setModel(model);
 		}
