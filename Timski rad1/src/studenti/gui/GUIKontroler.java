@@ -72,7 +72,16 @@ public class GUIKontroler {
 		prikaz.setVisible(true);
 		prikaz.setLocationRelativeTo(null);
 		prikaz.osveziTabelu();
+		prikaz.setTitle("Prikaz studenata");
 	}	
+	public static void otvoriProzorZaPretragu(){
+		PrikazStudenataGUI prikaz = new PrikazStudenataGUI();
+		prikaz.setVisible(true);
+		prikaz.setLocationRelativeTo(null);
+		prikaz.osveziTabelu();
+		prikaz.vidljivaPretraga();
+		prikaz.setTitle("Pretraga studenata");
+	}
 	
 	public static void unesiStudenta(String imeIPrezime,String dodatneAktivnosti,String brojIndeksa, double prosek){
 		try{
@@ -100,5 +109,9 @@ public class GUIKontroler {
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
 		}
+	}
+
+	public static LinkedList<Student> vratiPretrazeneStudente(String trazeno) {
+		return grupa.vratiPretrazeneStudente(trazeno);
 	}
 }

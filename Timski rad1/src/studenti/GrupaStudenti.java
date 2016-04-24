@@ -53,5 +53,19 @@ public class GrupaStudenti {
 	public LinkedList<Student> vratiSveStudente(){
 		return studenti; 
 	}
+	public LinkedList<Student> vratiPretrazeneStudente(String trazeno) {
+		LinkedList<Student> pretrazeni = new LinkedList<Student>();
+		for(Student s: studenti){
+			if(s.getBrojIndeksa().contains(trazeno) 
+					|| s.getImeIPrezime().toLowerCase().contains(trazeno)
+					|| s.getImeIPrezime().toUpperCase().contains(trazeno)
+					|| s.getImeIPrezime().contains(trazeno)){
+					
+				pretrazeni.add(s);
+			}
+			
+		}
+		return pretrazeni;
+	}
 	
 }

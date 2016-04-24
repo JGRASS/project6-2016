@@ -90,6 +90,12 @@ public class BazaStudenti extends JFrame {
 		panel.add(btnIzmeni);
 		
 		JButton btnPretraziStudenta = new JButton("Pretrazi studenta");
+		btnPretraziStudenta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GUIKontroler.otvoriProzorZaPretragu();
+				
+			}
+		});
 		btnPretraziStudenta.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
 		btnPretraziStudenta.setBackground(new Color(204, 255, 153));
 		btnPretraziStudenta.setIcon(new ImageIcon(BazaStudenti.class.getResource("/slike/search.png")));
