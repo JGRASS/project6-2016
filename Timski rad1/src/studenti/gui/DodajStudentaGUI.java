@@ -39,22 +39,6 @@ public class DodajStudentaGUI extends JFrame {
 	private JTextField jtfBrIndeksa;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					DodajStudentaGUI frame = new DodajStudentaGUI();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
 	 * Create the frame.
 	 */
 	public DodajStudentaGUI() {
