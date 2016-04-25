@@ -37,6 +37,8 @@ public class StudentTableModel extends AbstractTableModel{
 		
 		}
 		}
+	
+	
 	@Override
 	public String getColumnName(int column) {
 			return kolone[column];

@@ -83,6 +83,17 @@ public class GUIKontroler {
 		prikaz.setTitle("Pretraga studenata");
 	}
 	
+	public static void otvoriProzorZaIzmenu() {
+		// TODO Auto-generated method stub
+		PrikazStudenataGUI prikaz = new PrikazStudenataGUI();
+		prikaz.setVisible(true);
+		prikaz.setLocationRelativeTo(null);
+		prikaz.osveziTabelu();
+		prikaz.vidljivaIzmena();
+		prikaz.setTitle("Izmena studenata");
+		
+	}
+	
 	public static void unesiStudenta(String imeIPrezime,String dodatneAktivnosti,String brojIndeksa, double prosek){
 		try{
 			Student s = new Student(imeIPrezime, dodatneAktivnosti, brojIndeksa, prosek);
@@ -114,4 +125,16 @@ public class GUIKontroler {
 	public static LinkedList<Student> vratiPretrazeneStudente(String trazeno) {
 		return grupa.vratiPretrazeneStudente(trazeno);
 	}
+
+	
+	public static void obrisiRed(int red) {
+		// TODO Auto-generated method stub
+		vratiSveStudente().remove(red);
+		prikaz.osveziTabelu();
+		grupa.upisiUFajlSerijalizacijom();
+		
+
+	}
+
+	
 }

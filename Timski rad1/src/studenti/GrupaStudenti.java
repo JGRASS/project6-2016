@@ -24,6 +24,7 @@ public class GrupaStudenti {
 		prikaz.osveziTabelu();
 		upisiUFajlSerijalizacijom();
 	}
+	
 	public void upisiUFajlSerijalizacijom(){
 		try {
 			ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream("studenti.txt")));
@@ -67,5 +68,7 @@ public class GrupaStudenti {
 		}
 		return pretrazeni;
 	}
+	
+	
 	
 }

@@ -8,12 +8,16 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import studenti.GrupaStudenti;
+import studenti.Student;
 import studenti.gui.models.StudentTableModel;
 
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.LinkedList;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -27,6 +31,8 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextField;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.Dimension;
+import javax.swing.ImageIcon;
 
 public class PrikazStudenataGUI extends JFrame {
 	
@@ -35,6 +41,9 @@ public class PrikazStudenataGUI extends JFrame {
 	private JTextField tfpretraga;
 	private JLabel lblPretraga;
 	private JLabel lblhelp;
+	private JPanel panel_1;
+	private JButton btnIzmeni;
+	private JButton btnObrisi;
 
 	/**
 	 * Create the frame.
@@ -95,6 +104,38 @@ public class PrikazStudenataGUI extends JFrame {
 		lblhelp.setFont(new Font("Tahoma", Font.PLAIN, 8));
 		lblhelp.setBounds(161, 226, 146, 14);
 		panel.add(lblhelp);
+		
+		panel_1 = new JPanel();
+		panel_1.setPreferredSize(new Dimension(10, 80));
+		panel_1.setVisible(false);
+		contentPane.add(panel_1, BorderLayout.SOUTH);
+		
+		btnIzmeni = new JButton("Izmeni");
+		btnIzmeni.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				IzmeniGUI prozor = new IzmeniGUI();
+				prozor.setVisible(true);
+				int red = table.getSelectedRow();
+				Student s = GUIKontroler.vratiSveStudente().get(red);
+				prozor.podesiPolja(s, red);
+			}
+		});
+		btnIzmeni.setIcon(new ImageIcon(PrikazStudenataGUI.class.getResource("/slike/group_edit.png")));
+		btnIzmeni.setVisible(false);
+		btnIzmeni.setPreferredSize(new Dimension(120, 40));
+		panel_1.add(btnIzmeni);
+		
+		btnObrisi = new JButton("Obrisi");
+		btnObrisi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				int red = table.getSelectedRow();
+				GUIKontroler.obrisiRed(red);
+			}
+		});
+		btnObrisi.setIcon(new ImageIcon(PrikazStudenataGUI.class.getResource("/slike/clear.png")));
+		btnObrisi.setVisible(false);
+		btnObrisi.setPreferredSize(new Dimension(120, 40));
+		panel_1.add(btnObrisi);
 	}
 	
 	public void osveziTabelu(){
@@ -105,6 +146,7 @@ public class PrikazStudenataGUI extends JFrame {
 	public void osveziPretrazenuTabelu(){
 		StudentTableModel model = (StudentTableModel) table.getModel();
 		model.ucitajStudente(GUIKontroler.vratiPretrazeneStudente(tfpretraga.getText()));
+		
 	}
 	
 	public JTable getTable() {
@@ -122,6 +164,14 @@ public class PrikazStudenataGUI extends JFrame {
 		tfpretraga.setVisible(true);
 		lblPretraga.setVisible(true);
 		lblhelp.setVisible(true);
+		
+	}
+
+	public void vidljivaIzmena() {
+		// TODO Auto-generated method stub
+		panel_1.setVisible(true);
+		btnIzmeni.setVisible(true);
+		btnObrisi.setVisible(true);
 		
 	}
 }

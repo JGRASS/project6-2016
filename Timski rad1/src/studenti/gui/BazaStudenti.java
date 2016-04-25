@@ -83,6 +83,11 @@ public class BazaStudenti extends JFrame {
 		panel.add(btnDodajStudenta);
 		
 		JButton btnIzmeni = new JButton("Izmeni");
+		btnIzmeni.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				GUIKontroler.otvoriProzorZaIzmenu();
+			}
+		});
 		btnIzmeni.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
 		btnIzmeni.setBackground(new Color(204, 255, 153));
 		btnIzmeni.setIcon(new ImageIcon(BazaStudenti.class.getResource("/slike/group_edit.png")));
