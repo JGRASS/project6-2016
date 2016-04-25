@@ -21,6 +21,8 @@ import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class IzmeniGUI extends JFrame {
 
@@ -30,7 +32,6 @@ public class IzmeniGUI extends JFrame {
 	private  JTextField jtfBrIndeksa;
 	private  JTextPane tPDodatne;
 	private JTextField jtfIndeks;
-
 	/**
 	 * Launch the application.
 	 */
@@ -51,10 +52,17 @@ public class IzmeniGUI extends JFrame {
 	 * Create the frame.
 	 */
 	public IzmeniGUI() {
+		setTitle("Izmena podataka");
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent arg0) {
+				GUIKontroler.otvoriProzorZaIzmenu();
+			}
+		});
 		setMinimumSize(new Dimension(400, 400));
 		setMaximumSize(new Dimension(400, 400));
 		setPreferredSize(new Dimension(400, 400));
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -128,8 +136,12 @@ public class IzmeniGUI extends JFrame {
 				int indeks = Integer.parseInt(jtfIndeks.getText());
 				GUIKontroler.obrisiRed(indeks);
 				GUIKontroler.unesiStudenta(imePrezime, dodatneA, brIndeksa, prosek);
+				
+				
 				GUIKontroler.sacuvajUFajl();
 				dispose();
+				GUIKontroler.otvoriProzorZaIzmenu();
+				
 			}
 		});
 		btnPotvrdi.setBounds(306, 77, 108, 56);
@@ -149,4 +161,5 @@ public class IzmeniGUI extends JFrame {
 		tPDodatne.setText(s.getDodatneAktivnosti());
 		jtfIndeks.setText(indeks+"");
 	}
+	
 }

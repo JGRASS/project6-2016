@@ -83,6 +83,7 @@ public class GUIKontroler {
 		prikaz.setTitle("Pretraga studenata");
 	}
 	
+	
 	public static void otvoriProzorZaIzmenu() {
 		// TODO Auto-generated method stub
 		PrikazStudenataGUI prikaz = new PrikazStudenataGUI();
@@ -135,6 +136,9 @@ public class GUIKontroler {
 		
 
 	}
-
+	
+	public static void osveziTabeluIzmena(){
+		prikaz.osveziTabelu();
+	}
 	
 }

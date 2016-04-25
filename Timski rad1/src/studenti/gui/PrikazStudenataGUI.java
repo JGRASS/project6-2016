@@ -33,6 +33,9 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.Dimension;
 import javax.swing.ImageIcon;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.SystemColor;
 
 public class PrikazStudenataGUI extends JFrame {
 	
@@ -60,13 +63,13 @@ public class PrikazStudenataGUI extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(255, 250, 205));
+		contentPane.setBackground(SystemColor.menu);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
 		JPanel panel = new JPanel();
-		panel.setBackground(new Color(255, 250, 205));
+		panel.setBackground(SystemColor.menu);
 		contentPane.add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
 		
@@ -74,7 +77,7 @@ public class PrikazStudenataGUI extends JFrame {
 		scrollPane.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
 		scrollPane.setBackground(new Color(255, 255, 255));
 		scrollPane.setForeground(new Color(255, 255, 204));
-		scrollPane.setBounds(0, 0, 424, 197);
+		scrollPane.setBounds(0, 0, 424, 171);
 		panel.add(scrollPane);
 		
 		table = getTable();
@@ -111,8 +114,10 @@ public class PrikazStudenataGUI extends JFrame {
 		contentPane.add(panel_1, BorderLayout.SOUTH);
 		
 		btnIzmeni = new JButton("Izmeni");
+		btnIzmeni.setEnabled(false);
 		btnIzmeni.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				setVisible(false);
 				IzmeniGUI prozor = new IzmeniGUI();
 				prozor.setVisible(true);
 				int red = table.getSelectedRow();
@@ -126,10 +131,14 @@ public class PrikazStudenataGUI extends JFrame {
 		panel_1.add(btnIzmeni);
 		
 		btnObrisi = new JButton("Obrisi");
+		btnObrisi.setEnabled(false);
 		btnObrisi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				int red = table.getSelectedRow();
 				GUIKontroler.obrisiRed(red);
+				osveziTabelu();
+				btnIzmeni.setEnabled(false);
+				btnObrisi.setEnabled(false);
 			}
 		});
 		btnObrisi.setIcon(new ImageIcon(PrikazStudenataGUI.class.getResource("/slike/clear.png")));
@@ -152,7 +161,15 @@ public class PrikazStudenataGUI extends JFrame {
 	public JTable getTable() {
 		if(table == null ){
 			table = new JTable();
-			table.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
+			table.setGridColor(new Color(0, 0, 0));
+			table.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseReleased(MouseEvent arg0) {
+					btnIzmeni.setEnabled(true);
+					btnObrisi.setEnabled(true);
+				}
+			});
+			table.setFont(new Font("Trebuchet MS", Font.BOLD, 11));
 			table.setBackground(new Color(255, 255, 255));
 			StudentTableModel model = new StudentTableModel(null);
 			table.setModel(model);
