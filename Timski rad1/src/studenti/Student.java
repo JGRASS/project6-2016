@@ -11,9 +11,12 @@ public class Student implements Serializable{
 		this.imeIPrezime = imeIPrezime;
 		this.dodatneAktivnosti = dodatneAktivnosti;
 		this.brojIndeksa = brojIndeksa;
-		this.prosek = prosek;
-		
+		this.prosek = prosek;	
 	}
+	
+	public Student(){
+	}
+	
 	public String getImeIPrezime() {
 		return imeIPrezime;
 	}
@@ -37,6 +40,11 @@ public class Student implements Serializable{
 	}
 	public void setProsek(double prosek) {
 		this.prosek = prosek;
+	}
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "Ime i prezime: "+imeIPrezime+" Br. indeksa: "+brojIndeksa+"Opis: "+dodatneAktivnosti+" Prosek: "+prosek;
 	}
 	
 }

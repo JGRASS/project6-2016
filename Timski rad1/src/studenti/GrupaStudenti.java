@@ -13,12 +13,15 @@ import studenti.gui.PrikazStudenataGUI;
 public class GrupaStudenti {
 	private LinkedList<Student> studenti = new LinkedList<>();
 	private static PrikazStudenataGUI prikaz= new PrikazStudenataGUI();
+	
 	public LinkedList<Student> getStudenti() {
 		return studenti;
 	}
+	
 	public void setStudenti(LinkedList<Student> studenti) {
 		this.studenti = studenti;
 	}
+	
 	public void unesiStudenta(Student s){
 		studenti.add(s);
 		prikaz.osveziTabelu();
