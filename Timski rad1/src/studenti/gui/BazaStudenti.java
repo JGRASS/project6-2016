@@ -26,7 +26,11 @@ import java.awt.event.WindowEvent;
 import java.util.LinkedList;
 import java.awt.Color;
 import java.awt.Font;
-
+/**
+ * Klasa koja predstavlja prozor, glavni meni nase aplikacije
+ * @author Andjela
+ *
+ */
 public class BazaStudenti extends JFrame {
 
 	private JPanel contentPane;
@@ -75,6 +79,9 @@ public class BazaStudenti extends JFrame {
 		btnDodajStudenta.setBackground(new Color(204, 255, 153));
 		btnDodajStudenta.setIcon(new ImageIcon(BazaStudenti.class.getResource("/slike/add.png")));
 		btnDodajStudenta.addActionListener(new ActionListener() {
+			/**
+			 * Otvara prozor za dodavanje studenta preko GUIKontrolera
+			 */
 			public void actionPerformed(ActionEvent arg0) {
 				GUIKontroler.otvoriProzorZaDodavanjeStudenata();
 			}
@@ -85,6 +92,9 @@ public class BazaStudenti extends JFrame {
 		JButton btnIzmeni = new JButton("Izmeni");
 		btnIzmeni.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				/**
+				 *  Otvara prozor za izmenu studenta preko GUIKontrolera
+				 */
 				GUIKontroler.otvoriProzorZaIzmenu();
 			}
 		});
@@ -96,6 +106,9 @@ public class BazaStudenti extends JFrame {
 		
 		JButton btnPretraziStudenta = new JButton("Pretrazi studenta");
 		btnPretraziStudenta.addActionListener(new ActionListener() {
+			/**
+			 *  Otvara prozor za pretragu studenta preko GUIKontrolera
+			 */
 			public void actionPerformed(ActionEvent e) {
 				GUIKontroler.otvoriProzorZaPretragu();
 				
@@ -115,6 +128,9 @@ public class BazaStudenti extends JFrame {
 		btnPrikaziStudente.setBackground(new Color(204, 255, 153));
 		btnPrikaziStudente.setIcon(new ImageIcon(BazaStudenti.class.getResource("/slike/Show.png")));
 		btnPrikaziStudente.addActionListener(new ActionListener() {
+			/**
+			 *  Otvara prozor za prikaz studenta preko GUIKontrolera
+			 */
 			public void actionPerformed(ActionEvent e) {
 				GUIKontroler.otvoriProzorZaPrikazStudenata();
 				

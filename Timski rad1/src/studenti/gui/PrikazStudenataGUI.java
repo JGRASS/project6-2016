@@ -36,7 +36,11 @@ import javax.swing.ImageIcon;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.SystemColor;
-
+/**
+ * Klasa koja predstavlja prozor za prikaz studenta (istovremeno i za pretragu i izmenu)
+ * @author Andjela
+ *
+ */
 public class PrikazStudenataGUI extends JFrame {
 	
 	private JPanel contentPane;
@@ -116,6 +120,10 @@ public class PrikazStudenataGUI extends JFrame {
 		btnIzmeni = new JButton("Izmeni");
 		btnIzmeni.setEnabled(false);
 		btnIzmeni.addActionListener(new ActionListener() {
+			/**
+			 * Klikom na dugme izmeni, otvara se prozor za izmenu, preuzima se selektovani red i poziva se metoda kojom se 
+			 * popounjavaju polja u novoj formi sa izabranim studentom 
+			 */
 			public void actionPerformed(ActionEvent arg0) {
 				setVisible(false);
 				IzmeniGUI prozor = new IzmeniGUI();
@@ -123,6 +131,7 @@ public class PrikazStudenataGUI extends JFrame {
 				int red = table.getSelectedRow();
 				Student s = GUIKontroler.vratiSveStudente().get(red);
 				prozor.podesiPolja(s, red);
+				
 			}
 		});
 		btnIzmeni.setIcon(new ImageIcon(PrikazStudenataGUI.class.getResource("/slike/group_edit.png")));
@@ -133,6 +142,9 @@ public class PrikazStudenataGUI extends JFrame {
 		btnObrisi = new JButton("Obrisi");
 		btnObrisi.setEnabled(false);
 		btnObrisi.addActionListener(new ActionListener() {
+			/**
+			 * Metoda brise red koji je selektovan, osvezava tabelu
+			 */
 			public void actionPerformed(ActionEvent arg0) {
 				int red = table.getSelectedRow();
 				GUIKontroler.obrisiRed(red);
@@ -146,12 +158,16 @@ public class PrikazStudenataGUI extends JFrame {
 		btnObrisi.setPreferredSize(new Dimension(120, 40));
 		panel_1.add(btnObrisi);
 	}
-	
+	/**
+	 * Metoda osvezava tabelu, ucitava sve studente
+	 */
 	public void osveziTabelu(){
 		StudentTableModel model = (StudentTableModel) table.getModel();
 		model.ucitajStudente(GUIKontroler.vratiSveStudente());
 	}
-	
+	/**
+	 * Metoda osvezava pretrazenu tabelu, tako sto ucitava sve studente koji odgovaraju trazenom opisu
+	 */
 	public void osveziPretrazenuTabelu(){
 		StudentTableModel model = (StudentTableModel) table.getModel();
 		model.ucitajStudente(GUIKontroler.vratiPretrazeneStudente(tfpretraga.getText()));
@@ -176,14 +192,18 @@ public class PrikazStudenataGUI extends JFrame {
 		}
 		return table;
 	}
-
+	/**
+	 * Postavlja vidljivost odgovarajucih objekata za pretragu na true
+	 */
 	public void vidljivaPretraga() {
 		tfpretraga.setVisible(true);
 		lblPretraga.setVisible(true);
 		lblhelp.setVisible(true);
 		
 	}
-
+	/**
+	 * Postavlja vidljivost odgovarajucih objekata za izmenu na true
+	 */
 	public void vidljivaIzmena() {
 		// TODO Auto-generated method stub
 		panel_1.setVisible(true);

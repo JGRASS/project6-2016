@@ -23,7 +23,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-
+/**
+ * Klasa koja predstavlja prozor za izmenu odredjenog studenta
+ * @author Andjela
+ *
+ */
 public class IzmeniGUI extends JFrame {
 
 	private JPanel contentPane;
@@ -35,18 +39,6 @@ public class IzmeniGUI extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	/*public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					IzmeniGUI frame = new IzmeniGUI();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}*/
 
 	/**
 	 * Create the frame.
@@ -127,6 +119,10 @@ public class IzmeniGUI extends JFrame {
 		JButton btnPotvrdi = new JButton("Potvrdi");
 		btnPotvrdi.setIcon(new ImageIcon(IzmeniGUI.class.getResource("/slike/group_edit.png")));
 		btnPotvrdi.addActionListener(new ActionListener() {
+			/**
+			 * Preuzima sve podatke iz odredjenih polja, pravi novi objekat klase student, brise studenta iz liste kog zelimo 
+			 * da izmenimo i ubacuje novog studenta na kraj liste
+			 */
 			public void actionPerformed(ActionEvent e) {
 				String imePrezime = jtfImePrezime.getText();
 				String brIndeksa = jtfBrIndeksa.getText();
@@ -153,7 +149,12 @@ public class IzmeniGUI extends JFrame {
 		panel.add(jtfIndeks);
 		jtfIndeks.setColumns(10);
 	}
-	
+	/**
+	 * Metoda podesava polja sa podacima studenta koga smo izabrali kako bi mogli da neka polja samo modifikujemo
+	 * bez potrebe da upisujemo novi tekst
+	 * @param s Objekat klase student kog zelimo da izmenimo
+	 * @param indeks Redni broj pod kojim se nalazi u tabeli
+	 */
 	public void podesiPolja(Student s, int indeks){
 		jtfImePrezime.setText(s.getImeIPrezime());
 		jtfBrIndeksa.setText(s.getBrojIndeksa());

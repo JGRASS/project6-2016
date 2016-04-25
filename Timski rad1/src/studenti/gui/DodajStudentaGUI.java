@@ -30,7 +30,11 @@ import java.awt.Color;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-
+/**
+ * Klasa koja predstavlja prozor i sluzi za dodavanje studenta u bazu
+ * @author Andjela
+ *
+ */
 public class DodajStudentaGUI extends JFrame {
 
 	private JPanel contentPane;
@@ -117,6 +121,10 @@ public class DodajStudentaGUI extends JFrame {
 		btnDodaj.setIcon(new ImageIcon(DodajStudentaGUI.class.getResource("/slike/add.png")));
 		btnDodaj.setBackground(new Color(255, 255, 224));
 		btnDodaj.addActionListener(new ActionListener() {
+			/**
+			 * Preuzimanje svih podataka iz odgovarajucih polja, pravljanje objekta tipa Student i njegovo ubacivanje u listu
+			 * kao i ubacivanje u fajl
+			 */
 			public void actionPerformed(ActionEvent arg0) {
 				String brIndeksa = jtfBrIndeksa.getText();
 				String imePrezime = jtfImeIPrezime.getText();
@@ -152,6 +160,9 @@ public class DodajStudentaGUI extends JFrame {
 		btnPonisti.setIcon(new ImageIcon(DodajStudentaGUI.class.getResource("/slike/clear.png")));
 		btnPonisti.setBackground(new Color(255, 255, 224));
 		btnPonisti.addActionListener(new ActionListener() {
+			/**
+			 * Ponistava tekst u svim poljima
+			 */
 			public void actionPerformed(ActionEvent arg0) {
 				jtfBrIndeksa.setText(null);
 				jtfImeIPrezime.setText(null);
