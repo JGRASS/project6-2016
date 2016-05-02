@@ -26,12 +26,13 @@ import java.awt.event.WindowEvent;
 import java.util.LinkedList;
 import java.awt.Color;
 import java.awt.Font;
+import javax.swing.JLabel;
 /**
  * Klasa koja predstavlja prozor, glavni meni nase aplikacije
  * @author Andjela
  *
  */
-public class BazaStudenti extends JFrame {
+public class AdministratorGUI extends JFrame {
 
 	private JPanel contentPane;
 	
@@ -39,17 +40,15 @@ public class BazaStudenti extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public BazaStudenti() {
-		addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-			GUIKontroler.ugasiAplikaciju();
-			}
-		});
+	public AdministratorGUI() {
+		try{
+			GUIKontroler.ucitajIzFajla();
+		}catch(Exception e){
+			
+		}
 		setTitle("Baza studenti");
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
-		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
@@ -62,7 +61,7 @@ public class BazaStudenti extends JFrame {
 				System.exit(0);
 			}
 		});
-		mntmIzadji.setIcon(new ImageIcon(BazaStudenti.class.getResource("/javax/swing/plaf/metal/icons/ocean/close.gif")));
+		mntmIzadji.setIcon(new ImageIcon(AdministratorGUI.class.getResource("/javax/swing/plaf/metal/icons/ocean/close.gif")));
 		mnFile.add(mntmIzadji);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -76,8 +75,8 @@ public class BazaStudenti extends JFrame {
 		
 		JButton btnDodajStudenta = new JButton("Dodaj studenta");
 		btnDodajStudenta.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
-		btnDodajStudenta.setBackground(new Color(204, 255, 153));
-		btnDodajStudenta.setIcon(new ImageIcon(BazaStudenti.class.getResource("/slike/add.png")));
+		btnDodajStudenta.setBackground(new Color(204, 255, 102));
+		btnDodajStudenta.setIcon(new ImageIcon(AdministratorGUI.class.getResource("/slike/add.png")));
 		btnDodajStudenta.addActionListener(new ActionListener() {
 			/**
 			 * Otvara prozor za dodavanje studenta preko GUIKontrolera
@@ -86,7 +85,7 @@ public class BazaStudenti extends JFrame {
 				GUIKontroler.otvoriProzorZaDodavanjeStudenata();
 			}
 		});
-		btnDodajStudenta.setBounds(10, 11, 188, 87);
+		btnDodajStudenta.setBounds(10, 11, 178, 78);
 		panel.add(btnDodajStudenta);
 		
 		JButton btnIzmeni = new JButton("Izmeni");
@@ -99,9 +98,9 @@ public class BazaStudenti extends JFrame {
 			}
 		});
 		btnIzmeni.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
-		btnIzmeni.setBackground(new Color(204, 255, 153));
-		btnIzmeni.setIcon(new ImageIcon(BazaStudenti.class.getResource("/slike/group_edit.png")));
-		btnIzmeni.setBounds(236, 11, 178, 87);
+		btnIzmeni.setBackground(new Color(204, 255, 102));
+		btnIzmeni.setIcon(new ImageIcon(AdministratorGUI.class.getResource("/slike/group_edit.png")));
+		btnIzmeni.setBounds(236, 11, 178, 78);
 		panel.add(btnIzmeni);
 		
 		JButton btnPretraziStudenta = new JButton("Pretrazi studenta");
@@ -115,30 +114,38 @@ public class BazaStudenti extends JFrame {
 			}
 		});
 		btnPretraziStudenta.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
-		btnPretraziStudenta.setBackground(new Color(204, 255, 153));
-		btnPretraziStudenta.setIcon(new ImageIcon(BazaStudenti.class.getResource("/slike/search.png")));
+		btnPretraziStudenta.setBackground(new Color(204, 255, 102));
+		btnPretraziStudenta.setIcon(new ImageIcon(AdministratorGUI.class.getResource("/slike/search.png")));
 		btnPretraziStudenta.setPreferredSize(new Dimension(120, 30));
 		btnPretraziStudenta.setMinimumSize(new Dimension(120, 30));
 		btnPretraziStudenta.setMaximumSize(new Dimension(120, 30));
-		btnPretraziStudenta.setBounds(10, 132, 188, 87);
+		btnPretraziStudenta.setBounds(10, 100, 404, 55);
 		panel.add(btnPretraziStudenta);
 		
-		JButton btnPrikaziStudente = new JButton("Prikazi studente");
-		btnPrikaziStudente.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
-		btnPrikaziStudente.setBackground(new Color(204, 255, 153));
-		btnPrikaziStudente.setIcon(new ImageIcon(BazaStudenti.class.getResource("/slike/Show.png")));
-		btnPrikaziStudente.addActionListener(new ActionListener() {
-			/**
-			 *  Otvara prozor za prikaz studenta preko GUIKontrolera
-			 */
+		JButton button = new JButton("");
+		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				GUIKontroler.otvoriProzorZaPrikazStudenata();
-				
+				setVisible(false);
+				GlavniProzorGUI g = new GlavniProzorGUI();
+				g.setVisible(true);
+				g.setLocationRelativeTo(null);
 			}
 		});
-		btnPrikaziStudente.setBounds(236, 132, 178, 87);
-		panel.add(btnPrikaziStudente);
-	
+		button.setBackground(new Color(204, 255, 102));
+		button.setIcon(new ImageIcon(AdministratorGUI.class.getResource("/slike/gnome-logout-icone-8962-48.png")));
+		button.setBounds(10, 166, 48, 48);
+		panel.add(button);
+		
+		JLabel lblLogOut = new JLabel(" Log out");
+		lblLogOut.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblLogOut.setBounds(10, 216, 46, 14);
+		panel.add(lblLogOut);
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+			GUIKontroler.ugasiAplikaciju();
+			}
+		});
 	
 	}
 	

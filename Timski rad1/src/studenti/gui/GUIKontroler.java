@@ -23,7 +23,7 @@ public class GUIKontroler {
 	/**
 	 * Klasa koja se odnosi na pocetni prozor nase aplikacije
 	 */
-	private static BazaStudenti baza;
+	private static AdministratorGUI baza;
 	/**
 	 * Klasa GrupaStudenti
 	 */
@@ -32,6 +32,7 @@ public class GUIKontroler {
 	 * Klasa koja se odnosi na prozor za prikaz
 	 */
 	private static PrikazStudenataGUI prikaz;
+	private static GlavniProzorGUI glavniProzor;
 	private JPanel contentPane;
 
 	/**
@@ -41,15 +42,12 @@ public class GUIKontroler {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					baza = new BazaStudenti();
-					prikaz = new PrikazStudenataGUI();
-					prikaz.setVisible(true);
-					prikaz.setLocationRelativeTo(null);
 					grupa = new GrupaStudenti();
-					baza.setVisible(true);
-					baza.setLocationRelativeTo(null);
-					prikaz.setVisible(false);
-					ucitajIzFajla();
+					prikaz = new PrikazStudenataGUI();
+					glavniProzor = new GlavniProzorGUI();
+					glavniProzor.setVisible(true);
+					glavniProzor.setLocationRelativeTo(null);
+					
 					
 				} catch (Exception e) {
 					e.printStackTrace();

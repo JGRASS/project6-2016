@@ -67,13 +67,13 @@ public class PrikazStudenataGUI extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
-		contentPane.setBackground(SystemColor.menu);
+		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
 		JPanel panel = new JPanel();
-		panel.setBackground(SystemColor.menu);
+		panel.setBackground(Color.WHITE);
 		contentPane.add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
 		
@@ -113,6 +113,7 @@ public class PrikazStudenataGUI extends JFrame {
 		panel.add(lblhelp);
 		
 		panel_1 = new JPanel();
+		panel_1.setBackground(Color.WHITE);
 		panel_1.setPreferredSize(new Dimension(10, 80));
 		panel_1.setVisible(false);
 		contentPane.add(panel_1, BorderLayout.SOUTH);
