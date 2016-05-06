@@ -11,6 +11,11 @@ import java.util.LinkedList;
 
 import studenti.gui.GUIKontroler;
 import studenti.gui.PrikazStudenataGUI;
+import studenti.sistemskeoperacije.SOUcitajIzFajlaDeserijalizacijom;
+import studenti.sistemskeoperacije.SOUnesiStudenta;
+import studenti.sistemskeoperacije.SOUpisiUFajlSerijalizacijom;
+import studenti.sistemskeoperacije.SOVratiPretrazeneStudente;
+import studenti.sistemskeoperacije.SOVratiSveStudente;
 /**
  * Klasa koja se odnosi na grupu studenata
  * @author Andjela
@@ -26,6 +31,7 @@ public class GrupaStudenti {
 	 */
 	private static PrikazStudenataGUI prikaz= new PrikazStudenataGUI();
 	
+	
 	/**
 	 * Metoda koja inicijalizuje listu studenti
 	 * @param studenti Lista objekata tipa Student
@@ -39,26 +45,14 @@ public class GrupaStudenti {
 	 * @param s Objekat tipa student
 	 */
 	public void unesiStudenta(Student s){
-		studenti.add(s);
-		GUIKontroler.osveziTabelu(prikaz.getTable());
-		upisiUFajlSerijalizacijom();
+		SOUnesiStudenta.izvrsi(s, studenti);
 	}
 	/**
 	 * Metoda koja upisuje u binarni fajl serijalizacijom listu objekata tipa Student
 	 * 
 	 */
 	public void upisiUFajlSerijalizacijom(){
-		try {
-			ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream("studenti.txt")));
-			
-				out.writeObject(studenti);
-			
-			
-			out.close();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			System.out.println(e.getMessage());
-		}
+		SOUpisiUFajlSerijalizacijom.izvrsi(studenti);
 		
 	}
 	/**
@@ -66,23 +60,14 @@ public class GrupaStudenti {
 	 * @throws java.lang.RuntimeException Ako dodje do greske prilikom ucitavanja podataka iz fajla
 	 */
 	public void ucitajIzFajlaDeserijalizacijom(){
-		try {
-		ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new FileInputStream("studenti.txt")));
-		LinkedList<Student> studenti2 = (LinkedList<Student>) (in.readObject());
-		studenti.clear();
-		studenti.addAll(studenti2);
-
-		in.close();
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
+		SOUcitajIzFajlaDeserijalizacijom.izvrsi(studenti);
 	}
 	/**
 	 * Metoda vraca celu listu studenata
 	 * @return Lista studenti
 	 */
 	public LinkedList<Student> vratiSveStudente(){
-		return studenti; 
+		return SOVratiSveStudente.izvrsi(studenti);
 	}
 	/**
 	 * Metoda koja vraca koja prolazi kroz listu i trazi one studente kod kojih se u sklopu imena i prezimena ili br indeksa
@@ -91,18 +76,7 @@ public class GrupaStudenti {
 	 * @return Lista koja sadrzi objekte tipa student koji odgovaraju rezultatima pretrage
 	 */
 	public LinkedList<Student> vratiPretrazeneStudente(String trazeno) {
-		LinkedList<Student> pretrazeni = new LinkedList<Student>();
-		for(Student s: studenti){
-			if(s.getBrojIndeksa().contains(trazeno) 
-					|| s.getImeIPrezime().toLowerCase().contains(trazeno)
-					|| s.getImeIPrezime().toUpperCase().contains(trazeno)
-					|| s.getImeIPrezime().contains(trazeno)){
-					
-				pretrazeni.add(s);
-			}
-			
-		}
-		return pretrazeni;
+		return SOVratiPretrazeneStudente.izvrsi(trazeno, studenti);
 	}
 	
 	
