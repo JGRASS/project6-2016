@@ -7,12 +7,16 @@ import java.util.LinkedList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
 
 import studenti.GrupaStudenti;
 import studenti.Student;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.sql.Time;
 import java.awt.event.ActionEvent;
 /**
  * Glavni prozor, koji sluzi za pokretanje svih ostalih prozora
@@ -34,6 +38,7 @@ public class GUIKontroler {
 	private static PrikazStudenataGUI prikaz;
 	private static GlavniProzorGUI glavniProzor;
 	private JPanel contentPane;
+	private static int brojPokusaja = 0;
 
 	/**
 	 * Launch the application.
@@ -185,6 +190,39 @@ public class GUIKontroler {
 	 */
 	public static void osveziTabeluIzmena(){
 		prikaz.osveziTabelu();
+	}
+	
+	
+	public static void proveriImeISifru(JTextField textField, JPasswordField passwordField, JButton btnVreme, JButton btnPotvrdi, ActionListener taskPerformer) {
+		if(textField.getText().equals("admin") && passwordField.getText().equals("admin")){
+			AdministratorGUI b = new AdministratorGUI();
+			b.setVisible(true);
+			b.setLocationRelativeTo(null);
+			glavniProzor.setVisible(false);
+		}else{
+			JOptionPane.showMessageDialog(null, "Pogresan unos", "Greska", JOptionPane.ERROR_MESSAGE);
+			brojPokusaja++;
+		}
+		if(brojPokusaja==3){
+			brojPokusaja=0;
+			textField.setEnabled(false);
+			passwordField.setEnabled(false);
+			btnPotvrdi.setEnabled(false);
+			JOptionPane.showMessageDialog(null, "Previse netacnih pokusaja. Probajte ponovo za 10 sekundi.");
+			btnVreme.setVisible(true);
+			Timer t = new Timer(1000, taskPerformer);
+			t.start();
+		}
+		
+	}
+	public static void logOut() {
+		// TODO Auto-generated method stub
+		AdministratorGUI baza = new AdministratorGUI();
+		baza.setVisible(false);
+		GlavniProzorGUI glavniProzor = new GlavniProzorGUI();
+		glavniProzor = new GlavniProzorGUI();
+		glavniProzor.setVisible(true);
+		glavniProzor.setLocationRelativeTo(null);
 	}
 	
 }

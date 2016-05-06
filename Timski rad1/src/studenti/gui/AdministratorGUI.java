@@ -125,10 +125,7 @@ public class AdministratorGUI extends JFrame {
 		JButton button = new JButton("");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
-				GlavniProzorGUI g = new GlavniProzorGUI();
-				g.setVisible(true);
-				g.setLocationRelativeTo(null);
+				GUIKontroler.logOut();
 			}
 		});
 		button.setBackground(new Color(204, 255, 102));

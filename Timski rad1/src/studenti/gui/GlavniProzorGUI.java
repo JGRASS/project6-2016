@@ -23,7 +23,6 @@ import java.awt.SystemColor;
 import javax.swing.JPasswordField;
 
 	public class GlavniProzorGUI extends JFrame {
-	private int brojPokusaja=0;
 	private JPanel contentPane;
 	private JPanel panel;
 	private JLabel lblusername;
@@ -110,25 +109,8 @@ import javax.swing.JPasswordField;
 			btnPotvrdi.setIcon(new ImageIcon(GlavniProzorGUI.class.getResource("/slike/accept.png")));
 			btnPotvrdi.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					if(textField.getText().equals("admin") && passwordField.getText().equals("admin")){
-						AdministratorGUI b = new AdministratorGUI();
-						b.setVisible(true);
-						b.setLocationRelativeTo(null);
-						setVisible(false);
-					}else{
-						JOptionPane.showMessageDialog(null, "Pogresan unos", "Greska", JOptionPane.ERROR_MESSAGE);
-						brojPokusaja++;
-					}
-					if(brojPokusaja==3){
-						brojPokusaja=0;
-						textField.setEnabled(false);
-						passwordField.setEnabled(false);
-						btnPotvrdi.setEnabled(false);
-						JOptionPane.showMessageDialog(null, "Previse netacnih pokusaja. Probajte ponovo za 15 sekundi.");
-						btnVreme.setVisible(true);
-						Timer t = new Timer(1000, taskPerformer);
-						t.start();
-					}
+					GUIKontroler.proveriImeISifru(textField, passwordField, btnVreme, btnPotvrdi, taskPerformer);
+					
 				}
 			});
 			btnPotvrdi.setBounds(307, 56, 107, 25);
