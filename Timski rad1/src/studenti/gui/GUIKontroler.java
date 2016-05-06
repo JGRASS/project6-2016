@@ -8,12 +8,16 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.JTextPane;
 import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
 
 import studenti.GrupaStudenti;
 import studenti.Student;
+import studenti.gui.models.StudentTableModel;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.sql.Time;
@@ -95,7 +99,7 @@ public class GUIKontroler {
 		PrikazStudenataGUI prikaz = new PrikazStudenataGUI();
 		prikaz.setVisible(true);
 		prikaz.setLocationRelativeTo(null);
-		prikaz.osveziTabelu();
+		osveziTabelu(prikaz.getTable());
 		prikaz.setTitle("Prikaz studenata");
 	}	
 	/**
@@ -106,7 +110,7 @@ public class GUIKontroler {
 		PrikazStudenataGUI prikaz = new PrikazStudenataGUI();
 		prikaz.setVisible(true);
 		prikaz.setLocationRelativeTo(null);
-		prikaz.osveziTabelu();
+		osveziTabelu(prikaz.getTable());
 		prikaz.vidljivaPretraga();
 		prikaz.setTitle("Pretraga studenata");
 	}
@@ -120,7 +124,7 @@ public class GUIKontroler {
 		PrikazStudenataGUI prikaz = new PrikazStudenataGUI();
 		prikaz.setVisible(true);
 		prikaz.setLocationRelativeTo(null);
-		prikaz.osveziTabelu();
+		osveziTabelu(prikaz.getTable());
 		prikaz.vidljivaIzmena();
 		prikaz.setTitle("Izmena studenata");
 		
@@ -136,7 +140,7 @@ public class GUIKontroler {
 		try{
 			Student s = new Student(imeIPrezime, dodatneAktivnosti, brojIndeksa, prosek);
 			grupa.unesiStudenta(s);
-			prikaz.osveziTabelu();
+			osveziTabelu(prikaz.getTable());
 		}catch(Exception e1){
 			JOptionPane.showMessageDialog(baza.getContentPane(), "Proveri formu "+ e1.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
 		}
@@ -152,13 +156,39 @@ public class GUIKontroler {
 			JOptionPane.showMessageDialog(null, e.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
 		}
 	}
+	
+	public static void dodajStudenta(JTextField jtfBrIndeksa, JTextField jtfImeIPrezime, JTextField jtfProsek, JTextPane textPane){
+		String brIndeksa = jtfBrIndeksa.getText();
+		String imePrezime = jtfImeIPrezime.getText();
+		String dodatneAktivnosti = textPane.getText();
+		double prosek = 0;
+		if(brIndeksa.isEmpty() || imePrezime.isEmpty()){
+			JOptionPane.showMessageDialog(null, "Niste uneli sva obavezna polja", "Greska", JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		try{
+			prosek = Double.parseDouble(jtfProsek.getText());
+		}catch(Exception e){
+			JOptionPane.showMessageDialog(null, "Greska pri unosu proseka", "Greska", JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		LinkedList<Student> lista = GUIKontroler.vratiSveStudente();
+		for (int i = 0; i < lista.size(); i++) {
+			if(lista.get(i).getBrojIndeksa().equals(brIndeksa)){
+				JOptionPane.showMessageDialog(null, "Student sa brojem indeksa "+brIndeksa+" vec postoji!!!", "Greska", JOptionPane.WARNING_MESSAGE);
+				return;
+			}
+		}
+		GUIKontroler.unesiStudenta(imePrezime, dodatneAktivnosti, brIndeksa, prosek);
+		GUIKontroler.sacuvajUFajl();
+	}
 	/**
 	 * Metoda koja ucitava podatke iz fajla i osvezva tabelu nakon toga
 	 */
 	public static void ucitajIzFajla(){
 		try {
 			grupa.ucitajIzFajlaDeserijalizacijom();
-			prikaz.osveziTabelu();
+			osveziTabelu(prikaz.getTable());
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
 		}
@@ -180,7 +210,7 @@ public class GUIKontroler {
 	public static void obrisiRed(int red) {
 		// TODO Auto-generated method stub
 		vratiSveStudente().remove(red);
-		prikaz.osveziTabelu();
+		osveziTabelu(prikaz.getTable());
 		grupa.upisiUFajlSerijalizacijom();
 		
 
@@ -189,7 +219,7 @@ public class GUIKontroler {
 	 * Metoda koja poziva metodu iz klase PrikazStudenataGUI i osvezava tabelu
 	 */
 	public static void osveziTabeluIzmena(){
-		prikaz.osveziTabelu();
+		osveziTabelu(prikaz.getTable());
 	}
 	
 	
@@ -223,6 +253,37 @@ public class GUIKontroler {
 		glavniProzor = new GlavniProzorGUI();
 		glavniProzor.setVisible(true);
 		glavniProzor.setLocationRelativeTo(null);
+	}
+	
+	/**
+	 * Metoda osvezava tabelu, ucitava sve studente
+	 */
+	public static void osveziTabelu(JTable table){
+		StudentTableModel model = (StudentTableModel) table.getModel();
+		model.ucitajStudente(GUIKontroler.vratiSveStudente());
+	}
+	/**
+	 * Metoda osvezava pretrazenu tabelu, tako sto ucitava sve studente koji odgovaraju trazenom opisu
+	 */
+	public static void osveziPretrazenuTabelu(JTable table, JTextField tfpretraga){
+		StudentTableModel model = (StudentTableModel) table.getModel();
+		model.ucitajStudente(GUIKontroler.vratiPretrazeneStudente(tfpretraga.getText()));
+		
+	}
+	
+	/**
+	 * Klikom na dugme izmeni na formi za prikazivanje studenata
+	 * otvara se prozor za izmenu, preuzima se selektovani red i poziva se metoda kojom se popounjavaju polja u novoj formi 
+	 * sa izabranim studentom 
+	 */
+	public static void podesavanjaZaIzmenu(JTable table){
+		PrikazStudenataGUI prikaz = new PrikazStudenataGUI();
+		prikaz.setVisible(false);
+		IzmeniGUI prozor = new IzmeniGUI();
+		prozor.setVisible(true);
+		int red = table.getSelectedRow();
+		Student s = GUIKontroler.vratiSveStudente().get(red);
+		prozor.podesiPolja(s, red);
 	}
 	
 }

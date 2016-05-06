@@ -133,7 +133,6 @@ public class IzmeniGUI extends JFrame {
 				GUIKontroler.obrisiRed(indeks);
 				GUIKontroler.unesiStudenta(imePrezime, dodatneA, brIndeksa, prosek);
 				
-				
 				GUIKontroler.sacuvajUFajl();
 				dispose();
 				GUIKontroler.otvoriProzorZaIzmenu();

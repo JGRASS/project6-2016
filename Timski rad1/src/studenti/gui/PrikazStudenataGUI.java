@@ -99,7 +99,7 @@ public class PrikazStudenataGUI extends JFrame {
 		tfpretraga.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent arg0) {
-				osveziPretrazenuTabelu();
+				GUIKontroler.osveziPretrazenuTabelu(table, tfpretraga);
 			}
 		});
 		tfpretraga.setBounds(173, 205, 108, 20);
@@ -121,18 +121,8 @@ public class PrikazStudenataGUI extends JFrame {
 		btnIzmeni = new JButton("Izmeni");
 		btnIzmeni.setEnabled(false);
 		btnIzmeni.addActionListener(new ActionListener() {
-			/**
-			 * Klikom na dugme izmeni, otvara se prozor za izmenu, preuzima se selektovani red i poziva se metoda kojom se 
-			 * popounjavaju polja u novoj formi sa izabranim studentom 
-			 */
 			public void actionPerformed(ActionEvent arg0) {
-				setVisible(false);
-				IzmeniGUI prozor = new IzmeniGUI();
-				prozor.setVisible(true);
-				int red = table.getSelectedRow();
-				Student s = GUIKontroler.vratiSveStudente().get(red);
-				prozor.podesiPolja(s, red);
-				
+				GUIKontroler.podesavanjaZaIzmenu(table);
 			}
 		});
 		btnIzmeni.setIcon(new ImageIcon(PrikazStudenataGUI.class.getResource("/slike/group_edit.png")));
@@ -149,7 +139,7 @@ public class PrikazStudenataGUI extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				int red = table.getSelectedRow();
 				GUIKontroler.obrisiRed(red);
-				osveziTabelu();
+				GUIKontroler.osveziTabelu(table);
 				btnIzmeni.setEnabled(false);
 				btnObrisi.setEnabled(false);
 			}
@@ -158,21 +148,6 @@ public class PrikazStudenataGUI extends JFrame {
 		btnObrisi.setVisible(false);
 		btnObrisi.setPreferredSize(new Dimension(120, 40));
 		panel_1.add(btnObrisi);
-	}
-	/**
-	 * Metoda osvezava tabelu, ucitava sve studente
-	 */
-	public void osveziTabelu(){
-		StudentTableModel model = (StudentTableModel) table.getModel();
-		model.ucitajStudente(GUIKontroler.vratiSveStudente());
-	}
-	/**
-	 * Metoda osvezava pretrazenu tabelu, tako sto ucitava sve studente koji odgovaraju trazenom opisu
-	 */
-	public void osveziPretrazenuTabelu(){
-		StudentTableModel model = (StudentTableModel) table.getModel();
-		model.ucitajStudente(GUIKontroler.vratiPretrazeneStudente(tfpretraga.getText()));
-		
 	}
 	
 	public JTable getTable() {

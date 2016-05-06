@@ -9,6 +9,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.LinkedList;
 
+import studenti.gui.GUIKontroler;
 import studenti.gui.PrikazStudenataGUI;
 /**
  * Klasa koja se odnosi na grupu studenata
@@ -39,7 +40,7 @@ public class GrupaStudenti {
 	 */
 	public void unesiStudenta(Student s){
 		studenti.add(s);
-		prikaz.osveziTabelu();
+		GUIKontroler.osveziTabelu(prikaz.getTable());
 		upisiUFajlSerijalizacijom();
 	}
 	/**

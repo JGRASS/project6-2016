@@ -126,29 +126,7 @@ public class DodajStudentaGUI extends JFrame {
 			 * kao i ubacivanje u fajl
 			 */
 			public void actionPerformed(ActionEvent arg0) {
-				String brIndeksa = jtfBrIndeksa.getText();
-				String imePrezime = jtfImeIPrezime.getText();
-				String dodatneAktivnosti = textPane.getText();
-				double prosek = 0;
-				if(brIndeksa.isEmpty() || imePrezime.isEmpty()){
-					JOptionPane.showMessageDialog(contentPane, "Niste uneli sva obavezna polja", "Greska", JOptionPane.WARNING_MESSAGE);
-					return;
-				}
-				try{
-					prosek = Double.parseDouble(jtfProsek.getText());
-				}catch(Exception e){
-					JOptionPane.showMessageDialog(contentPane, "Greska pri unosu proseka", "Greska", JOptionPane.WARNING_MESSAGE);
-					return;
-				}
-				LinkedList<Student> lista = GUIKontroler.vratiSveStudente();
-				for (int i = 0; i < lista.size(); i++) {
-					if(lista.get(i).getBrojIndeksa().equals(brIndeksa)){
-						JOptionPane.showMessageDialog(contentPane, "Student sa brojem indeksa "+brIndeksa+" vec postoji!!!", "Greska", JOptionPane.WARNING_MESSAGE);
-						return;
-					}
-				}
-				GUIKontroler.unesiStudenta(imePrezime, dodatneAktivnosti, brIndeksa, prosek);
-				GUIKontroler.sacuvajUFajl();
+				GUIKontroler.dodajStudenta(jtfBrIndeksa, jtfImeIPrezime, jtfProsek, textPane);
 				dispose();
 				
 			}
