@@ -215,14 +215,6 @@ public class GUIKontroler {
 		
 
 	}
-	/**
-	 * Metoda koja poziva metodu iz klase PrikazStudenataGUI i osvezava tabelu
-	 */
-	public static void osveziTabeluIzmena(){
-		osveziTabelu(prikaz.getTable());
-	}
-	
-	
 	public static void proveriImeISifru(JTextField textField, JPasswordField passwordField, JButton btnVreme, JButton btnPotvrdi, ActionListener taskPerformer) {
 		if(textField.getText().equals("admin") && passwordField.getText().equals("admin")){
 			AdministratorGUI b = new AdministratorGUI();

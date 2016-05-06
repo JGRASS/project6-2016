@@ -124,16 +124,9 @@ public class IzmeniGUI extends JFrame {
 			 * da izmenimo i ubacuje novog studenta na kraj liste
 			 */
 			public void actionPerformed(ActionEvent e) {
-				String imePrezime = jtfImePrezime.getText();
-				String brIndeksa = jtfBrIndeksa.getText();
-				String dodatneA = tPDodatne.getText();
-				double prosek = Double.parseDouble(jtfProsek.getText());
-				Student s = new Student(imePrezime, dodatneA, brIndeksa, prosek);
 				int indeks = Integer.parseInt(jtfIndeks.getText());
 				GUIKontroler.obrisiRed(indeks);
-				GUIKontroler.unesiStudenta(imePrezime, dodatneA, brIndeksa, prosek);
-				
-				GUIKontroler.sacuvajUFajl();
+				GUIKontroler.dodajStudenta(jtfBrIndeksa, jtfImePrezime, jtfProsek, tPDodatne);
 				dispose();
 				GUIKontroler.otvoriProzorZaIzmenu();
 				
@@ -161,5 +154,4 @@ public class IzmeniGUI extends JFrame {
 		tPDodatne.setText(s.getDodatneAktivnosti());
 		jtfIndeks.setText(indeks+"");
 	}
-	
 }
